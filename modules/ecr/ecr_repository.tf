@@ -1,4 +1,6 @@
 resource "aws_ecr_repository" "backend" {
+  force_delete = true
+
   encryption_configuration {
     encryption_type = "AES256"
   }
