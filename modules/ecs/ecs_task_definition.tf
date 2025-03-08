@@ -3,14 +3,60 @@ resource "aws_ecs_task_definition" "api" {
     [
       {
         "cpu" : 0,
+        "environment" : [
+          {
+            "name" : "APP_PORT",
+            "value" : var.app_port
+          },
+          {
+            "name" : "AWS_REGION",
+            "value" : "ap-northeast-1"
+          },
+          {
+            "name" : "RESUME_BUCKET_NAME",
+            "value" : var.resume_bucket_name
+          },
+          {
+            "name" : "PUBLIC_BUCKET_NAME",
+            "value" : var.public_bucket_name
+          },
+          {
+            "name" : "DB_HOST",
+            "value" : var.db_host
+          },
+          {
+            "name" : "DB_PORT",
+            "value" : var.db_port
+          },
+          {
+            "name" : "DB_NAME",
+            "value" : var.db_name
+          },
+          {
+            "name" : "DB_USER",
+            "value" : var.ssm_db_user_arn
+          },
+          {
+            "name" : "DB_PASSWORD",
+            "value" : var.ssm_db_password_arn
+          },
+          {
+            "name" : "NO_REPLY_EMAIL",
+            "value" : var.ssm_no_reply_email_arn
+          }
+        ],
         "secrets" : [
           {
             "name" : "APP_ENV",
-            "valueFrom" : var.ssm_app_env_ern
+            "valueFrom" : var.ssm_app_env_arn
           },
           {
-            "name" : "APP_PORT",
-            "valueFrom" : var.ssm_app_port_ern
+            "name" : "CORS",
+            "valueFrom" : var.ssm_cors_arn
+          },
+          {
+            "name" : "API_URL",
+            "valueFrom" : var.ssm_api_url_arn
           },
           {
             "name" : "JWT_ACCESS_SECRET"

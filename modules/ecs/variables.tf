@@ -72,13 +72,23 @@ variable "sg_ids" {
   type        = list(string)
 }
 
-variable "ssm_app_env_ern" {
+variable "ssm_app_env_arn" {
   description = "SSM APP_ENV ARN"
   type        = string
 }
 
-variable "ssm_app_port_ern" {
-  description = "SSM APP_PORT ARN"
+variable "ssm_cors_arn" {
+  description = "SSM CORS ARN"
+  type        = string
+}
+
+variable "app_port" {
+  description = "APP_PORT"
+  type        = string
+}
+
+variable "ssm_api_url_arn" {
+  description = "SSM API URL ARN"
   type        = string
 }
 
@@ -89,5 +99,45 @@ variable "ssm_jwt_access_secret_arn" {
 
 variable "ssm_jwt_refresh_secret_arn" {
   description = "SSM JWT_REFRESH_SECRET ARN"
+  type        = string
+}
+
+variable "resume_bucket_name" {
+  description = "Resume Bucket Name"
+  type        = string
+}
+
+variable "public_bucket_name" {
+  description = "Public Bucket Name"
+  type        = string
+}
+
+variable "db_host" {
+  description = "DB Host"
+  type        = string
+}
+
+variable "db_port" {
+  description = "DB Port"
+  type        = string
+}
+
+variable "db_name" {
+  description = "DB Name"
+  type        = string
+}
+
+variable "ssm_db_user_arn" {
+  description = "DB User ARN"
+  type        = string
+}
+
+variable "ssm_db_password_arn" {
+  description = "DB Password ARN"
+  type        = string
+}
+
+variable "ssm_no_reply_email_arn" {
+  description = "SSM NO_REPLY_EMAIL ARN"
   type        = string
 }

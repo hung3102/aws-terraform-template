@@ -21,7 +21,7 @@ provider "aws" {
 }
 
 locals {
-  prefix = "tf-dev"
+  prefix = var.prefix
 }
 
 module "vpc" {
@@ -86,6 +86,17 @@ module "lb" {
   lb_target_group_port = 80
 }
 
+module "s3" {
+  source                               = "../../modules/s3"
+  prefix                               = local.prefix
+  employer_cloudfront_distribution_arn = module.cloudfront.employer_distribution_arn
+}
+
+module "cloudfront" {
+  source                             = "../../modules/cloudfront"
+  prefix                             = local.prefix
+  employer_static_bucket_domain_name = module.s3.employer_static_bucket_domain_name
+}
 module "ecr" {
   source             = "../../modules/ecr"
   prefix             = local.prefix
@@ -105,10 +116,15 @@ module "codedeploy" {
 
 module "ssm" {
   source             = "../../modules/ssm"
+  prefix             = local.prefix
   app_env            = var.ssm_app_env
-  app_port           = var.ssm_app_port
   jwt_access_secret  = var.ssm_jwt_access_secret
   jwt_refresh_secret = var.ssm_jwt_refresh_secret
+  cors               = var.ssm_cors
+  api_url            = var.ssm_api_url
+  db_user            = var.ssm_db_user
+  db_password        = var.ssm_db_password
+  no_reply_email     = var.ssm_no_reply_email
 }
 
 module "ecs" {
@@ -116,21 +132,31 @@ module "ecs" {
   prefix                               = local.prefix
   private_subnet_ids                   = module.subnet.private_subnet_ids
   api_container_name                   = "${local.prefix}-api"
-  api_service_desired_count            = 1
+  api_service_desired_count            = var.api_service_desired_count
   api_ecs_sg_id                        = module.sg.ecs_sg_id
   api_ecr_repository_url               = module.ecr.ecr_repository_url
-  api_container_cpu                    = 256
-  api_container_ephemeral_storage_size = 50
-  api_container_memory                 = 512
+  api_container_cpu                    = var.api_container_cpu
+  api_container_ephemeral_storage_size = var.api_container_ephemeral_storage_size
+  api_container_memory                 = var.api_container_memory
   execution_role_arn                   = module.iam.ecs_task_execution_role_arn
   api_ecs_task_role_arn                = module.iam.ecs_task_role_arn
   container_port                       = 3000
   lb_target_group_arn                  = module.lb.target_group_primary_arn
   sg_ids                               = [module.sg.ecs_sg_id]
   api_lb                               = [module.lb.api_lb]
-  ssm_app_env_ern                      = module.ssm.app_env_arn
-  ssm_app_port_ern                     = module.ssm.app_port_arn
+  ssm_app_env_arn                      = module.ssm.app_env_arn
+  ssm_cors_arn                         = module.ssm.cors_arn
+  app_port                             = 3000
+  ssm_api_url_arn                      = module.ssm.api_url_arn
   ssm_jwt_access_secret_arn            = module.ssm.jwt_access_secret_arn
   ssm_jwt_refresh_secret_arn           = module.ssm.jwt_refresh_secret_arn
+  resume_bucket_name                   = module.s3.resume_bucket_name
+  public_bucket_name                   = module.s3.public_bucket_name
+  db_host                              = "TODOH"
+  db_port                              = "TODOH"
+  db_name                              = "TODOH"
+  ssm_db_user_arn                      = module.ssm.db_user_arn
+  ssm_db_password_arn                  = module.ssm.db_password_arn
+  ssm_no_reply_email_arn               = module.ssm.no_reply_email_arn
 }
 

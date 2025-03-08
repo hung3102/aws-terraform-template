@@ -71,3 +71,42 @@ resource "aws_iam_role" "codedeploy_role" {
 
   managed_policy_arns = ["arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS"]
 }
+
+#============================== github action oidc role =================#
+resource "aws_iam_role" "github_actions_role" {
+  name = "${var.prefix}-github-actions-role"
+
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "",
+        "Effect" : "Allow",
+        "Principal" : {
+          "Federated" : aws_iam_openid_connect_provider.github_actions_oidc_provider.arn
+        },
+        "Action" : "sts:AssumeRoleWithWebIdentity",
+        "Condition" : {
+          StringLike = {
+            "token.actions.githubusercontent.com:sub" = [
+              "repo:your-potential/job-board:*",
+            ]
+          },
+          StringEquals = {
+            "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
+          }
+        }
+      }
+    ]
+  })
+}
+
+// attach policy to github actions role
+resource "aws_iam_role_policy_attachment" "github_actions_ecr_policy" {
+  role       = aws_iam_role.github_actions_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
+}
+resource "aws_iam_role_policy_attachment" "github_actions_inline_policy" {
+  role       = aws_iam_role.github_actions_role.name
+  policy_arn = aws_iam_policy.github_actions_policy.arn
+}
