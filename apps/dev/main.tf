@@ -44,13 +44,14 @@ module "eip" {
   source = "../../modules/eip"
 }
 
-module "nat" {
-  source           = "../../modules/nat"
-  prefix           = local.prefix
-  nat_eip_id       = module.eip.nat_eip_id
-  public_subnet_id = module.subnet.public_subnet_ids[0]
-  internet_gateway = module.igw.internet_gateway
-}
+# Using NAT instance instead because NAT Gateway is too expensive
+# module "nat" {
+# source           = "../../modules/nat"
+# prefix           = local.prefix
+# nat_eip_id       = module.eip.nat_eip_id
+# public_subnet_id = module.subnet.public_subnet_ids[0]
+# internet_gateway = module.igw.internet_gateway
+# }
 
 module "routetable" {
   source             = "../../modules/route_table"
@@ -58,8 +59,9 @@ module "routetable" {
   vpc_id             = module.vpc.vpc_id
   private_subnet_ids = module.subnet.private_subnet_ids
   public_subnet_ids  = module.subnet.public_subnet_ids
-  nat_gateway_id     = module.nat.nat_gateway_id
-  igw_id             = module.igw.internet_gateway.id
+  # nat_gateway_id     = module.nat.nat_gateway_id
+  nat_instance_network_interface_id = module.ec2.bastion_host_network_interface_id
+  igw_id                            = module.igw.internet_gateway.id
 }
 
 

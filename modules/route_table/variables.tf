@@ -18,12 +18,17 @@ variable "public_subnet_ids" {
   type        = list(string)
 }
 
-variable "nat_gateway_id" {
-  description = "NAT Gateway ID"
+variable "igw_id" {
+  description = "IGW ID"
   type        = string
 }
 
-variable "igw_id" {
-  description = "IGW ID"
+# variable "nat_gateway_id" {
+#   description = "NAT Gateway ID"
+#   type        = string
+# }
+
+variable "nat_instance_network_interface_id" {
+  description = "NAT Instance Network Interface ID"
   type        = string
 }

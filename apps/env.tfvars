@@ -24,4 +24,4 @@ rds_instance_class="db.t4g.micro"
 rds_skip_final_snapshot=true
 
 // ec2 parameters
-bastion_host_instance_type="t4g.nano"
+bastion_host_instance_type="t2.micro"
