@@ -4,6 +4,24 @@ resource "aws_ssm_parameter" "app_env" {
   value = var.app_env
 }
 
+resource "aws_ssm_parameter" "cors" {
+  name  = "${var.prefix}-CORS"
+  type  = "String"
+  value = var.cors
+}
+
+resource "aws_ssm_parameter" "app_port" {
+  name  = "${var.prefix}-APP_PORT"
+  type  = "String"
+  value = var.app_port
+}
+
+resource "aws_ssm_parameter" "api_url" {
+  name  = "${var.prefix}-API_URL"
+  type  = "String"
+  value = var.api_url
+}
+
 resource "aws_ssm_parameter" "jwt_access_secret" {
   name  = "${var.prefix}-JWT_ACCESS_SECRET"
   type  = "String"
@@ -16,38 +34,50 @@ resource "aws_ssm_parameter" "jwt_refresh_secret" {
   value = var.jwt_refresh_secret
 }
 
-resource "aws_ssm_parameter" "cors_arn" {
-  name  = "${var.prefix}-CORS"
+resource "aws_ssm_parameter" "resume_bucket_name" {
+  name  = "${var.prefix}-RESUME_BUCKET_NAME"
   type  = "String"
-  value = var.cors
+  value = var.resume_bucket_name
 }
 
-resource "aws_ssm_parameter" "api_url_arn" {
-  name  = "${var.prefix}-API_URL"
+resource "aws_ssm_parameter" "public_bucket_name" {
+  name  = "${var.prefix}-PUBLIC_BUCKET_NAME"
   type  = "String"
-  value = var.api_url
+  value = var.public_bucket_name
 }
 
-resource "aws_ssm_parameter" "db_name_arn" {
+resource "aws_ssm_parameter" "db_host" {
+  name  = "${var.prefix}-DB_HOST"
+  type  = "String"
+  value = var.db_host
+}
+
+resource "aws_ssm_parameter" "db_port" {
+  name  = "${var.prefix}-DB_PORT"
+  type  = "String"
+  value = var.db_port
+}
+
+resource "aws_ssm_parameter" "db_name" {
   name  = "${var.prefix}-DB_NAME"
   type  = "String"
   value = var.db_name
 }
 
-resource "aws_ssm_parameter" "db_user_arn" {
+resource "aws_ssm_parameter" "db_user" {
   name  = "${var.prefix}-DB_USER"
   type  = "String"
   value = var.db_user
 }
 
-resource "aws_ssm_parameter" "db_password_arn" {
+resource "aws_ssm_parameter" "db_password" {
   name  = "${var.prefix}-DB_PASSWORD"
   type  = "String"
   value = var.db_password
 }
 
-resource "aws_ssm_parameter" "no_reply_email_arn" {
-  name  = "${var.prefix}-DB_HOST"
+resource "aws_ssm_parameter" "no_reply_email" {
+  name  = "${var.prefix}-NO_REPLY_EMAIL"
   type  = "String"
   value = var.no_reply_email
 }

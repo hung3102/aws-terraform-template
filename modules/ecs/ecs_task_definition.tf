@@ -3,48 +3,6 @@ resource "aws_ecs_task_definition" "api" {
     [
       {
         "cpu" : 0,
-        "environment" : [
-          {
-            "name" : "APP_PORT",
-            "value" : var.app_port
-          },
-          {
-            "name" : "AWS_REGION",
-            "value" : "ap-northeast-1"
-          },
-          {
-            "name" : "RESUME_BUCKET_NAME",
-            "value" : var.resume_bucket_name
-          },
-          {
-            "name" : "PUBLIC_BUCKET_NAME",
-            "value" : var.public_bucket_name
-          },
-          {
-            "name" : "DB_HOST",
-            "value" : var.db_host
-          },
-          {
-            "name" : "DB_PORT",
-            "value" : var.db_port
-          },
-          {
-            "name" : "DB_NAME",
-            "value" : var.db_name
-          },
-          {
-            "name" : "DB_USER",
-            "value" : var.ssm_db_user_arn
-          },
-          {
-            "name" : "DB_PASSWORD",
-            "value" : var.ssm_db_password_arn
-          },
-          {
-            "name" : "NO_REPLY_EMAIL",
-            "value" : var.ssm_no_reply_email_arn
-          }
-        ],
         "secrets" : [
           {
             "name" : "APP_ENV",
@@ -53,6 +11,10 @@ resource "aws_ecs_task_definition" "api" {
           {
             "name" : "CORS",
             "valueFrom" : var.ssm_cors_arn
+          },
+          {
+            "name" : "APP_PORT",
+            "valueFrom" : var.ssm_app_port_arn
           },
           {
             "name" : "API_URL",
@@ -65,6 +27,38 @@ resource "aws_ecs_task_definition" "api" {
           {
             "name" : "JWT_REFRESH_SECRET"
             "valueFrom" : var.ssm_jwt_refresh_secret_arn
+          },
+          {
+            "name" : "RESUME_BUCKET_NAME",
+            "valueFrom" : var.ssm_resume_bucket_name_arn
+          },
+          {
+            "name" : "PUBLIC_BUCKET_NAME",
+            "valueFrom" : var.ssm_public_bucket_name_arn
+          },
+          {
+            "name" : "DB_HOST",
+            "valueFrom" : var.ssm_db_host_arn
+          },
+          {
+            "name" : "DB_PORT",
+            "valueFrom" : var.ssm_db_port_arn
+          },
+          {
+            "name" : "DB_NAME",
+            "valueFrom" : var.ssm_db_name_arn
+          },
+          {
+            "name" : "DB_USER",
+            "valueFrom" : var.ssm_db_user_arn
+          },
+          {
+            "name" : "DB_PASSWORD",
+            "valueFrom" : var.ssm_db_password_arn
+          },
+          {
+            "name" : "NO_REPLY_EMAIL",
+            "valueFrom" : var.ssm_no_reply_email_arn
           }
         ],
         "environmentFiles" : [],

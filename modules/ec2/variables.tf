@@ -47,3 +47,8 @@ variable "bastion_host_instance_type" {
   description = "Bastion Host Instance Type"
   type        = string
 }
+
+variable "bastion_host_role_name" {
+  description = "Bastion Host Role Name"
+  type        = string
+}

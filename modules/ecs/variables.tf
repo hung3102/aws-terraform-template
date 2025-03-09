@@ -82,8 +82,8 @@ variable "ssm_cors_arn" {
   type        = string
 }
 
-variable "app_port" {
-  description = "APP_PORT"
+variable "ssm_app_port_arn" {
+  description = "SSM APP_PORT ARN"
   type        = string
 }
 
@@ -102,28 +102,28 @@ variable "ssm_jwt_refresh_secret_arn" {
   type        = string
 }
 
-variable "resume_bucket_name" {
-  description = "Resume Bucket Name"
+variable "ssm_resume_bucket_name_arn" {
+  description = "SSM RESUME_BUCKET_NAME ARN"
   type        = string
 }
 
-variable "public_bucket_name" {
-  description = "Public Bucket Name"
+variable "ssm_public_bucket_name_arn" {
+  description = "SSM PUBLIC_BUCKET_NAME ARN"
   type        = string
 }
 
-variable "db_host" {
-  description = "DB Host"
+variable "ssm_db_host_arn" {
+  description = "SSM DB_HOST ARN"
   type        = string
 }
 
-variable "db_port" {
-  description = "DB Port"
+variable "ssm_db_port_arn" {
+  description = "SSM DB_PORT ARN"
   type        = string
 }
 
-variable "db_name" {
-  description = "DB Name"
+variable "ssm_db_name_arn" {
+  description = "SSM DB Name ARN"
   type        = string
 }
 

@@ -5,6 +5,8 @@ resource "aws_ecs_service" "api" {
   lifecycle {
     ignore_changes = [
       task_definition,
+      load_balancer,
+      network_configuration
     ]
   }
 

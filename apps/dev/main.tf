@@ -118,10 +118,15 @@ module "ssm" {
   source             = "../../modules/ssm"
   prefix             = local.prefix
   app_env            = var.ssm_app_env
+  cors               = var.ssm_cors
+  app_port           = 3000
+  api_url            = var.ssm_api_url
   jwt_access_secret  = var.ssm_jwt_access_secret
   jwt_refresh_secret = var.ssm_jwt_refresh_secret
-  cors               = var.ssm_cors
-  api_url            = var.ssm_api_url
+  resume_bucket_name = module.s3.resume_bucket_name
+  public_bucket_name = module.s3.public_bucket_name
+  db_host            = module.rds.db_host
+  db_port            = module.rds.db_port
   db_name            = var.ssm_db_name
   db_user            = var.ssm_db_user
   db_password        = var.ssm_db_password
@@ -147,15 +152,15 @@ module "ecs" {
   api_lb                               = [module.lb.api_lb]
   ssm_app_env_arn                      = module.ssm.app_env_arn
   ssm_cors_arn                         = module.ssm.cors_arn
-  app_port                             = 3000
+  ssm_app_port_arn                     = module.ssm.app_port_arn
   ssm_api_url_arn                      = module.ssm.api_url_arn
   ssm_jwt_access_secret_arn            = module.ssm.jwt_access_secret_arn
   ssm_jwt_refresh_secret_arn           = module.ssm.jwt_refresh_secret_arn
-  resume_bucket_name                   = module.s3.resume_bucket_name
-  public_bucket_name                   = module.s3.public_bucket_name
-  db_host                              = module.rds.db_host
-  db_port                              = module.rds.db_port
-  db_name                              = module.rds.db_name
+  ssm_resume_bucket_name_arn           = module.ssm.resume_bucket_name_arn
+  ssm_public_bucket_name_arn           = module.ssm.public_bucket_name_arn
+  ssm_db_host_arn                      = module.ssm.db_host_arn
+  ssm_db_port_arn                      = module.ssm.db_port_arn
+  ssm_db_name_arn                      = module.ssm.db_name_arn
   ssm_db_user_arn                      = module.ssm.db_user_arn
   ssm_db_password_arn                  = module.ssm.db_password_arn
   ssm_no_reply_email_arn               = module.ssm.no_reply_email_arn
@@ -186,4 +191,5 @@ module "ec2" {
   db_name                         = module.rds.db_name
   db_user                         = var.ssm_db_user
   db_password                     = var.ssm_db_password
+  bastion_host_role_name          = module.iam.bastion_host_role_name
 }

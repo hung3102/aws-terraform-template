@@ -19,8 +19,28 @@ variable "cors" {
   type = string
 }
 
+variable "app_port" {
+  type = number
+}
+
 variable "api_url" {
   type = string
+}
+
+variable "resume_bucket_name" {
+  type = string
+}
+
+variable "public_bucket_name" {
+  type = string
+}
+
+variable "db_host" {
+  type = string
+}
+
+variable "db_port" {
+  type = number
 }
 
 variable "db_name" {
