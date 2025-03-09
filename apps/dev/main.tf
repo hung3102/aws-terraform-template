@@ -152,11 +152,22 @@ module "ecs" {
   ssm_jwt_refresh_secret_arn           = module.ssm.jwt_refresh_secret_arn
   resume_bucket_name                   = module.s3.resume_bucket_name
   public_bucket_name                   = module.s3.public_bucket_name
-  db_host                              = "TODOH"
-  db_port                              = "TODOH"
-  db_name                              = "TODOH"
+  db_host                              = module.rds.db_host
+  db_port                              = module.rds.db_port
+  db_name                              = module.rds.db_name
   ssm_db_user_arn                      = module.ssm.db_user_arn
   ssm_db_password_arn                  = module.ssm.db_password_arn
   ssm_no_reply_email_arn               = module.ssm.no_reply_email_arn
 }
 
+module "rds" {
+  source                    = "../../modules/rds"
+  prefix                    = local.prefix
+  allocated_storage         = var.rds_allocated_storage
+  db_username               = var.ssm_db_user
+  db_password               = var.ssm_db_password
+  skip_final_snapshot       = var.rds_skip_final_snapshot
+  rds_sg_id                 = module.sg.rds_sg_id
+  instance_class            = var.rds_instance_class
+  private_subnet_group_name = module.subnet.private_subnet_group_name
+}

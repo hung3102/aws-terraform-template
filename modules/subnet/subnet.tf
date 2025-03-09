@@ -65,3 +65,9 @@ resource "aws_subnet" "private-2" {
 
   vpc_id = var.vpc_id
 }
+
+// private subnet group
+resource "aws_db_subnet_group" "private" {
+  name       = "${var.prefix}-private"
+  subnet_ids = [aws_subnet.private-1.id, aws_subnet.private-2.id]
+}

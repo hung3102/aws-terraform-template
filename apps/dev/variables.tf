@@ -55,3 +55,15 @@ variable "api_container_ephemeral_storage_size" {
 variable "api_container_memory" {
   type = number
 }
+
+variable "rds_allocated_storage" {
+  type = number
+}
+
+variable "rds_instance_class" {
+  type = string
+}
+
+variable "rds_skip_final_snapshot" {
+  type = bool
+}

@@ -59,3 +59,30 @@ resource "aws_vpc_security_group_ingress_rule" "lb_sg_allow_https" {
   ip_protocol = "tcp"
   to_port     = "443"
 }
+
+# ===================== RDS SG ==================================== #
+resource "aws_security_group" "rds_sg" {
+  name        = "${var.prefix}-db-security-group"
+  description = "Allow inbound MySQL access"
+  vpc_id      = var.vpc_id
+
+  # Allow MySQL connections (port 3306) from a specific IP or security group
+  ingress {
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = [aws_security_group.ecs_sg.id] # Allow only from ECS SG
+  }
+
+  # Allow outbound connections (e.g., for database updates)
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.prefix}-rds-security-group"
+  }
+}

@@ -11,9 +11,13 @@ ssm_no_reply_email="no_reply_email"
 ssm_jwt_access_secret="jwt_access_secret"
 ssm_jwt_refresh_secret="jwt_refresh_secret"
 
-
 // ecs parameters
 api_service_desired_count=1
 api_container_cpu=256
 api_container_ephemeral_storage_size=50
 api_container_memory=512
+
+// rds parameters
+rds_allocated_storage=20
+rds_instance_class="db.t4g.micro"
+rds_skip_final_snapshot=true
