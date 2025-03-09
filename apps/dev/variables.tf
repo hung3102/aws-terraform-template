@@ -28,6 +28,10 @@ variable "ssm_api_url" {
   type = string
 }
 
+variable "ssm_db_name" {
+  type = string
+}
+
 variable "ssm_db_user" {
   type = string
 }
@@ -66,4 +70,8 @@ variable "rds_instance_class" {
 
 variable "rds_skip_final_snapshot" {
   type = bool
+}
+
+variable "bastion_host_instance_type" {
+  type = string
 }

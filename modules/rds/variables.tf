@@ -37,3 +37,8 @@ variable "private_subnet_group_name" {
   description = "Private Subnet Group Name"
   type        = string
 }
+
+variable "db_name" {
+  description = "DB Name"
+  type        = string
+}

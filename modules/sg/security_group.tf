@@ -1,9 +1,12 @@
 # ===================== ECS SG ==================================== #
 resource "aws_security_group" "ecs_sg" {
   description = "ecs SG"
+  name        = "${var.prefix}-ecs"
+  vpc_id      = var.vpc_id
 
-  name   = "${var.prefix}-ecs"
-  vpc_id = var.vpc_id
+  tags = {
+    Name = "${var.prefix}-ecs"
+  }
 }
 
 resource "aws_vpc_security_group_egress_rule" "ecs_sg" {
@@ -29,6 +32,10 @@ resource "aws_security_group" "lb_sg" {
 
   name   = "${var.prefix}-lb"
   vpc_id = var.vpc_id
+
+  tags = {
+    Name = "${var.prefix}-lb"
+  }
 }
 
 resource "aws_vpc_security_group_egress_rule" "lb_sg" {
@@ -68,10 +75,13 @@ resource "aws_security_group" "rds_sg" {
 
   # Allow MySQL connections (port 3306) from a specific IP or security group
   ingress {
-    from_port       = 3306
-    to_port         = 3306
-    protocol        = "tcp"
-    security_groups = [aws_security_group.ecs_sg.id] # Allow only from ECS SG
+    from_port = 3306
+    to_port   = 3306
+    protocol  = "tcp"
+    security_groups = [
+      aws_security_group.ecs_sg.id,
+      aws_security_group.bastion_host_sg.id
+    ] # Allow only from ECS SG and Bastion
   }
 
   # Allow outbound connections (e.g., for database updates)
@@ -85,4 +95,34 @@ resource "aws_security_group" "rds_sg" {
   tags = {
     Name = "${var.prefix}-rds-security-group"
   }
+}
+
+# ===================== EC2 BASTION HOST SG ==================================== #
+resource "aws_security_group" "bastion_host_sg" {
+  description = "bastion host SG"
+
+  name   = "${var.prefix}-bastion"
+  vpc_id = var.vpc_id
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.prefix}-bastion"
+  }
+}
+
+# Allow SSH connections from internet
+resource "aws_vpc_security_group_ingress_rule" "bastion_host_sg_allow_ssh" {
+  description       = "allow ssh from internet"
+  security_group_id = aws_security_group.bastion_host_sg.id
+
+  from_port   = 22
+  to_port     = 22
+  ip_protocol = "tcp"
+  cidr_ipv4   = "0.0.0.0/0"
 }

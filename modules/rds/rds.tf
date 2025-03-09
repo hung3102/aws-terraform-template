@@ -13,11 +13,14 @@ resource "aws_db_instance" "job-board" {
   skip_final_snapshot    = var.skip_final_snapshot
   vpc_security_group_ids = [var.rds_sg_id]
   db_subnet_group_name   = var.private_subnet_group_name
-  deletion_protection    = true
+  db_name                = var.db_name
+
 
   # Prevent accidental deletion
+  deletion_protection = true
   lifecycle {
-    prevent_destroy = true
+    # TODO: uncomment the following line to prevent accidental deletion
+    # prevent_destroy = true
   }
 
   tags = {

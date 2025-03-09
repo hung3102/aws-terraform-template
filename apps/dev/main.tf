@@ -122,6 +122,7 @@ module "ssm" {
   jwt_refresh_secret = var.ssm_jwt_refresh_secret
   cors               = var.ssm_cors
   api_url            = var.ssm_api_url
+  db_name            = var.ssm_db_name
   db_user            = var.ssm_db_user
   db_password        = var.ssm_db_password
   no_reply_email     = var.ssm_no_reply_email
@@ -164,10 +165,25 @@ module "rds" {
   source                    = "../../modules/rds"
   prefix                    = local.prefix
   allocated_storage         = var.rds_allocated_storage
+  db_name                   = var.ssm_db_name
   db_username               = var.ssm_db_user
   db_password               = var.ssm_db_password
   skip_final_snapshot       = var.rds_skip_final_snapshot
   rds_sg_id                 = module.sg.rds_sg_id
   instance_class            = var.rds_instance_class
   private_subnet_group_name = module.subnet.private_subnet_group_name
+}
+
+module "ec2" {
+  source                          = "../../modules/ec2"
+  prefix                          = local.prefix
+  bastion_host_instance_type      = var.bastion_host_instance_type
+  bastion_host_eip_id             = module.eip.bastion_host_eip_id
+  public_subnet_ids               = module.subnet.public_subnet_ids
+  bastion_host_security_group_ids = [module.sg.bastion_host_sg_id]
+  db_host                         = module.rds.db_host
+  db_port                         = module.rds.db_port
+  db_name                         = module.rds.db_name
+  db_user                         = var.ssm_db_user
+  db_password                     = var.ssm_db_password
 }

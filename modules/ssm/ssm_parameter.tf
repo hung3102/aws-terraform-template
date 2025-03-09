@@ -28,6 +28,12 @@ resource "aws_ssm_parameter" "api_url_arn" {
   value = var.api_url
 }
 
+resource "aws_ssm_parameter" "db_name_arn" {
+  name  = "${var.prefix}-DB_NAME"
+  type  = "String"
+  value = var.db_name
+}
+
 resource "aws_ssm_parameter" "db_user_arn" {
   name  = "${var.prefix}-DB_USER"
   type  = "String"
