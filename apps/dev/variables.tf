@@ -75,3 +75,8 @@ variable "rds_skip_final_snapshot" {
 variable "bastion_host_instance_type" {
   type = string
 }
+
+variable "domain_name" {
+  description = "Domain Name"
+  type        = string
+}

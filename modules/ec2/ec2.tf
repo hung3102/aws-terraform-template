@@ -1,5 +1,5 @@
 resource "aws_instance" "bastion_host" {
-  ami                    = "ami-0009d4abd1cb17d97" # NAT AMI
+  ami                    = "ami-03cff7c3337659a83" # NAT AMI
   instance_type          = var.bastion_host_instance_type
   subnet_id              = var.public_subnet_ids[0]
   vpc_security_group_ids = var.bastion_host_security_group_ids

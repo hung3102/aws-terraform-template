@@ -195,3 +195,9 @@ module "ec2" {
   db_password                     = var.ssm_db_password
   bastion_host_role_name          = module.iam.bastion_host_role_name
 }
+
+module "route53" {
+  source      = "../../modules/route53"
+  prefix      = local.prefix
+  domain_name = var.domain_name
+}

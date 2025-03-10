@@ -117,12 +117,34 @@ resource "aws_security_group" "bastion_host_sg" {
 }
 
 # Allow SSH connections from internet
-resource "aws_vpc_security_group_ingress_rule" "bastion_host_sg_allow_ssh" {
+resource "aws_vpc_security_group_ingress_rule" "bastion_host_sg_allow_all_ssh" {
   description       = "allow ssh from internet"
   security_group_id = aws_security_group.bastion_host_sg.id
 
   from_port   = 22
   to_port     = 22
   ip_protocol = "tcp"
+  cidr_ipv4   = "0.0.0.0/0"
+}
+
+# Allow https form ecs sg
+resource "aws_vpc_security_group_ingress_rule" "bastion_host_sg_allow_ecs_https" {
+  description       = "allow https from ecs"
+  security_group_id = aws_security_group.bastion_host_sg.id
+
+  from_port                    = 443
+  to_port                      = 443
+  ip_protocol                  = "tcp"
+  referenced_security_group_id = aws_security_group.ecs_sg.id
+}
+
+# Allow ping from all
+resource "aws_vpc_security_group_ingress_rule" "bastion_host_sg_allow_all_ping" {
+  description       = "allow ping from all"
+  security_group_id = aws_security_group.bastion_host_sg.id
+
+  from_port   = -1
+  to_port     = -1
+  ip_protocol = "icmp"
   cidr_ipv4   = "0.0.0.0/0"
 }

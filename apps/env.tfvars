@@ -3,7 +3,7 @@ prefix = "tf-dev"
 
 // ssm parameters
 ssm_app_env ="dev"
-ssm_cors="*"
+ssm_cors="http://localhost:8081"
 ssm_api_url="http://localhost:3000"
 ssm_db_name="yp_dev_db"
 ssm_db_user="yp_dev_user"
@@ -25,3 +25,6 @@ rds_skip_final_snapshot=true
 
 // ec2 parameters
 bastion_host_instance_type="t2.micro"
+
+// route53 parameters
+domain_name="dev.japantechjob.com"
