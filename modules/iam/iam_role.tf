@@ -90,6 +90,7 @@ resource "aws_iam_role" "github_actions_role" {
           StringLike = {
             "token.actions.githubusercontent.com:sub" = [
               "repo:your-potential/job-board:*",
+              "repo:your-potential/employer-frontend:*",
             ]
           },
           StringEquals = {

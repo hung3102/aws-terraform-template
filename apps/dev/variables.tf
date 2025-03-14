@@ -1,11 +1,11 @@
-variable "aws_profile" {
-  description = "AWS Profile"
-  type        = string
-}
-
 variable "prefix" {
   description = "Name Prefix"
   type        = string
+}
+
+variable "environment" {
+  description = "Environment"
+  type        = string # development, staging, production
 }
 
 variable "ssm_app_env" {
@@ -79,4 +79,12 @@ variable "bastion_host_instance_type" {
 variable "domain_name" {
   description = "Domain Name"
   type        = string
+}
+
+variable "route53_records" {
+  description = "A map of record types and their details"
+  type = map(map(object({
+    name    = string
+    records = list(string)
+  })))
 }

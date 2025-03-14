@@ -1,9 +1,28 @@
-resource "aws_lb_listener" "api" {
+resource "aws_lb_listener" "api_http" {
+  count             = var.environment != "production" ? 1 : 0 # Create only in dev and stg
   load_balancer_arn = aws_lb.api.arn
-  port              = var.lb_port
-  protocol          = var.protocol
+  port              = 80
+  protocol          = "HTTP"
   # ssl_policy        = "ELBSecurityPolicy-2016-08"
-  # certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.primary.arn
+  }
+
+  lifecycle {
+    ignore_changes = [
+      default_action,
+    ]
+  }
+}
+
+resource "aws_lb_listener" "api_https" {
+  load_balancer_arn = aws_lb.api.arn
+  port              = 443
+  protocol          = "HTTPS"
+  # ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn = var.certificate_arn
 
   default_action {
     type             = "forward"

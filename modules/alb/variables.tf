@@ -18,17 +18,17 @@ variable "lb_sg_ids" {
   type        = list(string)
 }
 
-variable "lb_port" {
-  description = "LB Port"
-  type        = number # 80
-}
-
-variable "protocol" {
-  description = "Protocol"
-  type        = string # HTTPS 
-}
-
 variable "lb_target_group_port" {
   description = "LB Target Group Port"
   type        = number # 80
+}
+
+variable "certificate_arn" {
+  description = "Certificate ARN"
+  type        = string
+}
+
+variable "environment" {
+  description = "Environment"
+  type        = string
 }

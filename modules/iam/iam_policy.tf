@@ -67,11 +67,22 @@ resource "aws_iam_policy" "github_actions_policy" {
             "ecs:ListServices",
             "ecs:RegisterTaskDefinition",
             "ecs:UpdateService",
-            "iam:PassRole"
+            "iam:PassRole",
+            "cloudfront:CreateInvalidation",
+            "cloudfront:GetInvalidation",
+            "cloudfront:ListInvalidations"
           ],
           "Effect" : "Allow",
           "Resource" : "*",
           "Sid" : "VisualEditor0"
+        },
+        {
+          "Effect" : "Allow",
+          "Action" : "s3:*",
+          "Resource" : [
+            "arn:aws:s3:::${var.employer_static_bucket_name}",
+            "arn:aws:s3:::${var.employer_static_bucket_name}/*"
+          ]
         }
       ],
       "Version" : "2012-10-17"

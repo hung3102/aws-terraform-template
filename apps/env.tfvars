@@ -1,5 +1,5 @@
-aws_profile = "jb"
 prefix = "tf-dev"
+environment = "development"
 
 // ssm parameters
 ssm_app_env ="dev"
@@ -28,3 +28,4 @@ bastion_host_instance_type="t2.micro"
 
 // route53 parameters
 domain_name="dev.japantechjob.com"
+route53_records = {}

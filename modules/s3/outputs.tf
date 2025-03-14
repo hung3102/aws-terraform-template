@@ -10,3 +10,7 @@ output "resume_bucket_name" {
 output "public_bucket_name" {
   value = aws_s3_bucket.asset_bucket.bucket
 }
+
+output "employer_static_bucket_name" {
+  value = aws_s3_bucket.employer_static_bucket.bucket
+}

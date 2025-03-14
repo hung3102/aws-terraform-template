@@ -14,6 +14,7 @@ resource "aws_cloudfront_distribution" "employer_distribution" {
   is_ipv6_enabled     = true
   comment             = "employer S3 bucket distribution"
   default_root_object = "index.html"
+  aliases             = ["employer.${var.domain_name}"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -46,11 +47,12 @@ resource "aws_cloudfront_distribution" "employer_distribution" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn = var.acm_cert_arn
+    ssl_support_method  = "sni-only"
   }
 
   tags = {
-    Name = "employer-cloudfront"
+    Name = "${var.prefix}-employer-cloudfront"
   }
 }
 

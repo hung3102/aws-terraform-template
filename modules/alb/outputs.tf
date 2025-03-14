@@ -19,5 +19,5 @@ output "api_lb" {
 }
 
 output "lb_listener_arn" {
-  value = aws_lb_listener.api.arn
+  value = aws_lb_listener.api_https.arn
 }
