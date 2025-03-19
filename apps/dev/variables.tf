@@ -44,6 +44,10 @@ variable "ssm_no_reply_email" {
   type = string
 }
 
+variable "ssm_employer_url" {
+  type = string
+}
+
 variable "api_service_desired_count" {
   type = number
 }

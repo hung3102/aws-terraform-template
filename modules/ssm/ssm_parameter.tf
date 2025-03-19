@@ -48,7 +48,7 @@ resource "aws_ssm_parameter" "public_bucket_name" {
 
 resource "aws_ssm_parameter" "db_host" {
   name  = "${var.prefix}-DB_HOST"
-  type  = "String"
+  type  = "SecureString"
   value = var.db_host
 }
 
@@ -60,19 +60,19 @@ resource "aws_ssm_parameter" "db_port" {
 
 resource "aws_ssm_parameter" "db_name" {
   name  = "${var.prefix}-DB_NAME"
-  type  = "String"
+  type  = "SecureString"
   value = var.db_name
 }
 
 resource "aws_ssm_parameter" "db_user" {
   name  = "${var.prefix}-DB_USER"
-  type  = "String"
+  type  = "SecureString"
   value = var.db_user
 }
 
 resource "aws_ssm_parameter" "db_password" {
   name  = "${var.prefix}-DB_PASSWORD"
-  type  = "String"
+  type  = "SecureString"
   value = var.db_password
 }
 
@@ -80,4 +80,10 @@ resource "aws_ssm_parameter" "no_reply_email" {
   name  = "${var.prefix}-NO_REPLY_EMAIL"
   type  = "String"
   value = var.no_reply_email
+}
+
+resource "aws_ssm_parameter" "employer_url" {
+  name  = "${var.prefix}-EMPLOYER_URL"
+  type  = "String"
+  value = var.employer_url
 }

@@ -58,3 +58,7 @@ variable "db_password" {
 variable "no_reply_email" {
   type = string
 }
+
+variable "employer_url" {
+  type = string
+}

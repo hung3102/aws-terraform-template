@@ -53,3 +53,7 @@ output "db_password_arn" {
 output "no_reply_email_arn" {
   value = aws_ssm_parameter.no_reply_email.arn
 }
+
+output "employer_url_arn" {
+  value = aws_ssm_parameter.employer_url.arn
+}

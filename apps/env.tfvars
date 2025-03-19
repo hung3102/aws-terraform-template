@@ -11,6 +11,7 @@ ssm_db_password="yp_dev_password"
 ssm_no_reply_email="no_reply_email"
 ssm_jwt_access_secret="jwt_access_secret"
 ssm_jwt_refresh_secret="jwt_refresh_secret"
+ssm_employer_url="http://localhost:8081"
 
 // ecs parameters
 api_service_desired_count=1

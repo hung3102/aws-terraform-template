@@ -145,6 +145,7 @@ module "ssm" {
   db_user            = var.ssm_db_user
   db_password        = var.ssm_db_password
   no_reply_email     = var.ssm_no_reply_email
+  employer_url       = var.ssm_employer_url
 }
 
 module "ecs" {
@@ -178,6 +179,7 @@ module "ecs" {
   ssm_db_user_arn                      = module.ssm.db_user_arn
   ssm_db_password_arn                  = module.ssm.db_password_arn
   ssm_no_reply_email_arn               = module.ssm.no_reply_email_arn
+  ssm_employer_url_arn                 = module.ssm.employer_url_arn
 }
 
 module "rds" {

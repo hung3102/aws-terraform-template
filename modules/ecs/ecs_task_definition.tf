@@ -59,6 +59,10 @@ resource "aws_ecs_task_definition" "api" {
           {
             "name" : "NO_REPLY_EMAIL",
             "valueFrom" : var.ssm_no_reply_email_arn
+          },
+          {
+            "name" : "EMPLOYER_URL",
+            "valueFrom" : var.ssm_employer_url_arn
           }
         ],
         "environmentFiles" : [],
