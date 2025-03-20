@@ -1,39 +1,30 @@
-// create cloudfront function to rewrite /jobs to /jobs.html
-resource "aws_cloudfront_function" "append_html_suffix" {
-  name    = "suffix-html"
+resource "aws_cloudfront_function" "employer_viewer_request_function" {
+  name    = "employer-viewer-request-rewriter"
   runtime = "cloudfront-js-1.0"
-  comment = "Rewrite append .html to url path"
+  comment = "Employer view-requestt function"
   code    = <<EOT
 function handler(event) {
     var request = event.request;
     var uri = request.uri;
+
+    // Match patterns like /jobs/{id}/, /jobs/{id}/applications, or /jobs/{id}/edit
+    var match = uri.match(/^\/jobs\/([^\/]+)(\/applications|\/edit)?\/?$/);
+
+    if (match) {
+        var newUri = "/jobs/jobDynamicId";
+
+        // Append /applications or /edit if present
+        if (match[2]) {
+            newUri += match[2];
+        }
+
+        request.uri = newUri;
+        console.log("Rewritten URI:", request.uri);
+    }
 
     // If the request has no file extension (e.g., "/jobs"), rewrite to "/jobs.html"
     if (!uri.includes('.') && !uri.endsWith('/')) {
         request.uri += ".html";
-    }
-
-    return request;
-}
-EOT
-}
-
-// create function route dynamic path from /jobs/[id]/ to jobs/jobDynamicId/
-resource "aws_cloudfront_function" "route_dynamic_job_id" {
-  name    = "route-dynamic-path"
-  runtime = "cloudfront-js-1.0"
-  comment = "Rewrite /jobs/[id]/ to /jobs/jobDynamicId/"
-  code    = <<EOT
-function handler(event) {
-    var request = event.request;
-    var uri = request.uri;
-
-    // Match the pattern /jobs/{id}/
-    var match = uri.match(/^\/jobs\/([^\/]+)\/$/);
-    
-    if (match) {
-        // Rewrite to /jobs/jobDynamicId/
-        request.uri = "/jobs/jobDynamicId/";
     }
 
     return request;
