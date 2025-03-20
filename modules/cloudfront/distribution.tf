@@ -1,12 +1,21 @@
 locals {
   employer_static_origin_id = "employer_static_s3_origin"
+  asset_bucket_origin_id    = "asset_bucket_s3_origin"
 }
 
 // create cloud front with s3 bucket
 resource "aws_cloudfront_distribution" "employer_distribution" {
+  // employer static s3 bucket origin
   origin {
     domain_name              = var.employer_static_bucket_domain_name
     origin_id                = local.employer_static_origin_id
+    origin_access_control_id = aws_cloudfront_origin_access_control.employer_OAC.id
+  }
+
+  // asset bucket origin
+  origin {
+    domain_name              = var.public_bucket_domain_name
+    origin_id                = local.asset_bucket_origin_id
     origin_access_control_id = aws_cloudfront_origin_access_control.employer_OAC.id
   }
 
@@ -38,6 +47,22 @@ resource "aws_cloudfront_distribution" "employer_distribution" {
     min_ttl                = 0
     default_ttl            = 3600
     max_ttl                = 86400
+  }
+
+  # Custom behavior for /assets/*
+  ordered_cache_behavior {
+    path_pattern           = "/assets/*" # Route requests to /assets/*
+    target_origin_id       = local.asset_bucket_origin_id
+    viewer_protocol_policy = "redirect-to-https"
+    allowed_methods        = ["GET", "HEAD"]
+    cached_methods         = ["GET", "HEAD"]
+
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
   }
 
   restrictions {

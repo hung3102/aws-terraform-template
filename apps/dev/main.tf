@@ -107,6 +107,7 @@ module "cloudfront" {
   source                             = "../../modules/cloudfront"
   prefix                             = local.prefix
   employer_static_bucket_domain_name = module.s3.employer_static_bucket_domain_name
+  public_bucket_domain_name          = module.s3.public_bucket_domain_name
   acm_cert_arn                       = module.acm.us_east_cert_arn
   domain_name                        = var.domain_name
 }
