@@ -62,3 +62,13 @@ resource "aws_route53_record" "acm_records" {
   type            = each.value.type
   zone_id         = aws_route53_zone.main.zone_id
 }
+
+// create DKIM records
+resource "aws_route53_record" "amazonses_dkim_record" {
+  count   = 3
+  zone_id = aws_route53_zone.main.zone_id
+  name    = "${var.dkim_tokens[count.index]}._domainkey.${var.domain_name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["${var.dkim_tokens[count.index]}.dkim.amazonses.com"]
+}

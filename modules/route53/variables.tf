@@ -52,3 +52,8 @@ variable "acm_domain_validation_options" {
     resource_record_value = string
   }))
 }
+
+variable "dkim_tokens" {
+  description = "A list of DKIM Tokens"
+  type        = list(string)
+}

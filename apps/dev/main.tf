@@ -221,4 +221,12 @@ module "route53" {
   cloudfront_employer_domain_name    = module.cloudfront.employer_domain_name
   cloudfront_employer_hosted_zone_id = module.cloudfront.employer_hosted_zone_id
   acm_domain_validation_options      = module.acm.domain_validation_options
+  dkim_tokens                        = module.ses.dkim_tokens
+}
+
+module "ses" {
+  source                = "../../modules/ses"
+  prefix                = local.prefix
+  domain                = var.domain_name
+  amazonses_dkim_record = module.route53.amazonses_dkim_record
 }
