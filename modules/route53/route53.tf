@@ -72,3 +72,25 @@ resource "aws_route53_record" "amazonses_dkim_record" {
   ttl     = "300"
   records = ["${var.dkim_tokens[count.index]}.dkim.amazonses.com"]
 }
+
+// create SPF record
+resource "aws_route53_record" "amazonses_spf_record" {
+  zone_id = aws_route53_zone.main.id
+  name    = ""
+  type    = "TXT"
+  ttl     = "300"
+  records = [
+    "v=spf1 include:amazonses.com -all"
+  ]
+}
+
+// create DMARC record
+resource "aws_route53_record" "route_53_dmarc_txt" {
+  zone_id = aws_route53_zone.main.id
+  name    = "_dmarc.${var.domain_name}"
+  type    = "TXT"
+  ttl     = "300"
+  records = [
+    "v=DMARC1;p=none;"
+  ]
+}
