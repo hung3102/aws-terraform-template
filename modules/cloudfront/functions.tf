@@ -11,7 +11,7 @@ function handler(event) {
     var match = uri.match(/^\/jobs\/([^\/]+)(\/applications|\/edit)?\/?$/);
 
     if (match) {
-        var newUri = "/jobs/jobDynamicId";
+        var newUri = "/jobs/[id]";
 
         // Append /applications or /edit if present
         if (match[2]) {
