@@ -44,6 +44,18 @@ resource "aws_s3_bucket" "resume_bucket" {
   }
 }
 
+resource "aws_s3_bucket_cors_configuration" "resume_bucket_cors" {
+  bucket = aws_s3_bucket.resume_bucket.id
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["GET", "PUT"]
+    allowed_origins = ["*"]
+    expose_headers  = []
+    max_age_seconds = 3000
+  }
+}
+
 // s3 public bucket
 resource "aws_s3_bucket" "asset_bucket" {
   bucket = "${var.prefix}-asset-bucket"
