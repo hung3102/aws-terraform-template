@@ -3,6 +3,7 @@ resource "aws_route53_zone" "main" {
   name = var.domain_name
 }
 
+// create route53 records passed in from the module
 resource "aws_route53_record" "records" {
   for_each = merge([
     for record_type, records in var.records : {
@@ -34,7 +35,7 @@ resource "aws_route53_record" "api" {
 }
 
 // create route53 record for transfer to employer Cloudfront
-resource "aws_route53_record" "cloudfront" {
+resource "aws_route53_record" "employer_cloudfront" {
   zone_id = aws_route53_zone.main.zone_id
   name    = "employer.${var.domain_name}"
   type    = "A"
@@ -45,10 +46,22 @@ resource "aws_route53_record" "cloudfront" {
   }
 }
 
+// create route53 record for transfer to user Cloudfront
+resource "aws_route53_record" "user_cloudfront" {
+  zone_id = aws_route53_zone.main.zone_id
+  name    = var.domain_name
+  type    = "A"
+  alias {
+    name                   = var.cloudfront_user_domain_name
+    zone_id                = var.cloudfront_user_hosted_zone_id
+    evaluate_target_health = false
+  }
+}
+
 // create acm record for validation
 resource "aws_route53_record" "acm_records" {
   for_each = {
-    for dvo in var.acm_domain_validation_options : dvo.domain_name => {
+    for dvo in aws_acm_certificate.main.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type

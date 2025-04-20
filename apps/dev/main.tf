@@ -86,7 +86,7 @@ module "lb" {
   public_subnet_ids    = module.subnet.public_subnet_ids
   lb_sg_ids            = [module.sg.lb_sg_id]
   lb_target_group_port = 80
-  certificate_arn      = module.acm.main_cert_arn
+  certificate_arn      = module.route53.main_cert_arn
   environment          = local.environment
 }
 
@@ -94,21 +94,16 @@ module "s3" {
   source                               = "../../modules/s3"
   prefix                               = local.prefix
   employer_cloudfront_distribution_arn = module.cloudfront.employer_distribution_arn
-}
-
-module "acm" {
-  source              = "../../modules/acm"
-  prefix              = local.prefix
-  domain_name         = var.domain_name
-  route53_acm_records = module.route53.acm_records
+  user_cloudfront_distribution_arn     = module.cloudfront.user_distribution_arn
 }
 
 module "cloudfront" {
   source                             = "../../modules/cloudfront"
   prefix                             = local.prefix
   employer_static_bucket_domain_name = module.s3.employer_static_bucket_domain_name
+  user_static_bucket_domain_name     = module.s3.user_static_bucket_domain_name
   public_bucket_domain_name          = module.s3.public_bucket_domain_name
-  acm_cert_arn                       = module.acm.us_east_cert_arn
+  acm_cert_arn                       = module.route53.us_east_cert_arn
   domain_name                        = var.domain_name
 }
 
@@ -219,9 +214,11 @@ module "route53" {
   lb_api_dns_name                    = module.lb.api_lb.dns_name
   lb_api_hosted_zone_id              = module.lb.api_lb.zone_id
   cloudfront_employer_domain_name    = module.cloudfront.employer_domain_name
+  cloudfront_user_domain_name        = module.cloudfront.user_domain_name
   cloudfront_employer_hosted_zone_id = module.cloudfront.employer_hosted_zone_id
-  acm_domain_validation_options      = module.acm.domain_validation_options
-  dkim_tokens                        = module.ses.dkim_tokens
+  cloudfront_user_hosted_zone_id     = module.cloudfront.user_hosted_zone_id
+  # acm_domain_validation_options      = module.acm.domain_validation_options
+  dkim_tokens = module.ses.dkim_tokens
 }
 
 module "ses" {

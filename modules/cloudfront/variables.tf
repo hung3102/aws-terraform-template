@@ -8,6 +8,11 @@ variable "employer_static_bucket_domain_name" {
   type        = string
 }
 
+variable "user_static_bucket_domain_name" {
+  description = "User S3 Bucket Domain Name"
+  type        = string
+}
+
 variable "public_bucket_domain_name" {
   description = "Asset S3 Bucket Domain Name"
   type        = string

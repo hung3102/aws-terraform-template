@@ -38,20 +38,30 @@ variable "cloudfront_employer_domain_name" {
   type        = string
 }
 
+variable "cloudfront_user_domain_name" {
+  description = "Domain Name of the User Cloudfront Distribution"
+  type        = string
+}
+
 variable "cloudfront_employer_hosted_zone_id" {
   description = "Hosted Zone ID of the Cloudfront Distribution"
   type        = string
 }
 
-variable "acm_domain_validation_options" {
-  description = "A list of ACM Domain Validation Options"
-  type = list(object({
-    domain_name           = string
-    resource_record_name  = string
-    resource_record_type  = string
-    resource_record_value = string
-  }))
+variable "cloudfront_user_hosted_zone_id" {
+  description = "Hosted Zone ID of the User Cloudfront Distribution"
+  type        = string
 }
+
+# variable "acm_domain_validation_options" {
+#   description = "A list of ACM Domain Validation Options"
+#   type = list(object({
+#     domain_name           = string
+#     resource_record_name  = string
+#     resource_record_type  = string
+#     resource_record_value = string
+#   }))
+# }
 
 variable "dkim_tokens" {
   description = "A list of DKIM Tokens"

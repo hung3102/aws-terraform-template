@@ -1,3 +1,4 @@
+# -------------- employer --------------------- #
 // create employer's static s3 bucket for cloudfront
 resource "aws_s3_bucket" "employer_static_bucket" {
   bucket = "${var.prefix}-employer-static-bucket"
@@ -6,7 +7,7 @@ resource "aws_s3_bucket" "employer_static_bucket" {
   }
 }
 
-// create aws_s3_bucket_policy for cloudfront
+// create employer aws_s3_bucket_policy for cloudfront
 resource "aws_s3_bucket_policy" "employer_static_bucket_policy" {
   bucket = aws_s3_bucket.employer_static_bucket.bucket
   policy = data.aws_iam_policy_document.employer_static_oac_access.json
@@ -36,6 +37,46 @@ data "aws_iam_policy_document" "employer_static_oac_access" {
   }
 }
 
+# -------------- user --------------------- #
+// create user's static s3 bucket for cloudfront
+resource "aws_s3_bucket" "user_static_bucket" {
+  bucket = "${var.prefix}-user-static-bucket"
+  tags = {
+    Name = "${var.prefix}-user-static-bucket"
+  }
+}
+
+// create user aws_s3_bucket_policy for cloudfront
+resource "aws_s3_bucket_policy" "user_static_bucket_policy" {
+  bucket = aws_s3_bucket.user_static_bucket.bucket
+  policy = data.aws_iam_policy_document.user_static_oac_access.json
+}
+
+data "aws_iam_policy_document" "user_static_oac_access" {
+  statement {
+    principals {
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
+    }
+
+    actions = [
+      "s3:GetObject"
+    ]
+
+    resources = [
+      aws_s3_bucket.user_static_bucket.arn,
+      "${aws_s3_bucket.user_static_bucket.arn}/*"
+    ]
+
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceArn"
+      values   = [var.user_cloudfront_distribution_arn]
+    }
+  }
+}
+
+# -------------- resume bucket --------------------- #
 // create s3 resume_bucket
 resource "aws_s3_bucket" "resume_bucket" {
   bucket = "${var.prefix}-resume-bucket"
@@ -56,6 +97,7 @@ resource "aws_s3_bucket_cors_configuration" "resume_bucket_cors" {
   }
 }
 
+# -------------- assets bucket --------------------- #
 // s3 public bucket
 resource "aws_s3_bucket" "asset_bucket" {
   bucket = "${var.prefix}-asset-bucket"
