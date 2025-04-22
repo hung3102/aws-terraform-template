@@ -12,3 +12,8 @@ variable "employer_static_bucket_name" {
   description = "Employer Static Bucket Name"
   type        = string
 }
+
+variable "user_static_bucket_name" {
+  description = "User Static Bucket Name"
+  type        = string
+}

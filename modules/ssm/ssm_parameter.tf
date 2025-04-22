@@ -87,3 +87,9 @@ resource "aws_ssm_parameter" "employer_url" {
   type  = "String"
   value = var.employer_url
 }
+
+resource "aws_ssm_parameter" "sentry_dsn" {
+  name  = "${var.prefix}-SENTRY_DSN"
+  type  = "String"
+  value = var.sentry_dsn
+}

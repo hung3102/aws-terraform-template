@@ -62,3 +62,7 @@ variable "no_reply_email" {
 variable "employer_url" {
   type = string
 }
+
+variable "sentry_dsn" {
+  type = string
+}

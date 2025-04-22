@@ -91,6 +91,7 @@ resource "aws_iam_role" "github_actions_role" {
             "token.actions.githubusercontent.com:sub" = [
               "repo:your-potential/job-board:*",
               "repo:your-potential/employer-frontend:*",
+              "repo:your-potential/user-frontend:*",
             ]
           },
           StringEquals = {

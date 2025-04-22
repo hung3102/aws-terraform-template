@@ -71,6 +71,7 @@ module "iam" {
   prefix                      = local.prefix
   private_subnet_ids          = module.subnet.private_subnet_ids
   employer_static_bucket_name = module.s3.employer_static_bucket_name
+  user_static_bucket_name     = module.s3.user_static_bucket_name
 }
 
 module "sg" {
@@ -142,6 +143,7 @@ module "ssm" {
   db_password        = var.ssm_db_password
   no_reply_email     = var.ssm_no_reply_email
   employer_url       = var.ssm_employer_url
+  sentry_dsn         = var.ssm_sentry_dsn
 }
 
 module "ecs" {
@@ -176,6 +178,7 @@ module "ecs" {
   ssm_db_password_arn                  = module.ssm.db_password_arn
   ssm_no_reply_email_arn               = module.ssm.no_reply_email_arn
   ssm_employer_url_arn                 = module.ssm.employer_url_arn
+  ssm_sentry_dsn_arn                   = module.ssm.sentry_dsn_arn
 }
 
 module "rds" {

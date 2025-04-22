@@ -63,6 +63,10 @@ resource "aws_ecs_task_definition" "api" {
           {
             "name" : "EMPLOYER_URL",
             "valueFrom" : var.ssm_employer_url_arn
+          },
+          {
+            "name" : "SENTRY_DSN",
+            "valueFrom" : var.ssm_sentry_dsn_arn
           }
         ],
         "environmentFiles" : [],

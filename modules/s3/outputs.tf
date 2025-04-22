@@ -22,3 +22,7 @@ output "public_bucket_name" {
 output "employer_static_bucket_name" {
   value = aws_s3_bucket.employer_static_bucket.bucket
 }
+
+output "user_static_bucket_name" {
+  value = aws_s3_bucket.user_static_bucket.bucket
+}

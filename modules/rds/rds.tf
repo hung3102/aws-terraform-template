@@ -19,8 +19,7 @@ resource "aws_db_instance" "job-board" {
   # Prevent accidental deletion
   deletion_protection = true
   lifecycle {
-    # TODO: uncomment the following line to prevent accidental deletion
-    # prevent_destroy = true
+    prevent_destroy = true
   }
 
   tags = {

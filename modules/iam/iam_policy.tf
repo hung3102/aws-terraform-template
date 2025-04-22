@@ -13,6 +13,11 @@ resource "aws_iam_policy" "ecs_task_role_policy" {
           "Effect" : "Allow",
           "Resource" : "*",
           "Sid" : "VisualEditor0"
+        },
+        {
+          "Effect" : "Allow",
+          "Action" : "ses:SendEmail",
+          "Resource" : "*"
         }
       ],
       "Version" : "2012-10-17"
@@ -81,7 +86,9 @@ resource "aws_iam_policy" "github_actions_policy" {
           "Action" : "s3:*",
           "Resource" : [
             "arn:aws:s3:::${var.employer_static_bucket_name}",
-            "arn:aws:s3:::${var.employer_static_bucket_name}/*"
+            "arn:aws:s3:::${var.employer_static_bucket_name}/*",
+            "arn:aws:s3:::${var.user_static_bucket_name}",
+            "arn:aws:s3:::${var.user_static_bucket_name}/*"
           ]
         }
       ],

@@ -16,8 +16,3 @@ terraform plan -out plan.out
 # terraform plan -target=module.s3 -out plan.out
 terraform apply plan.out
 ```
-
-# TODO
-- add ses
-- add s3
-- add cors to s3
