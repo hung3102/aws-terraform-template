@@ -48,6 +48,10 @@ variable "ssm_employer_url" {
   type = string
 }
 
+variable "ssm_user_url" {
+  type = string
+}
+
 variable "ssm_sentry_dsn" {
   type = string
 }

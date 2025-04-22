@@ -63,6 +63,10 @@ variable "employer_url" {
   type = string
 }
 
+variable "user_url" {
+  type = string
+}
+
 variable "sentry_dsn" {
   type = string
 }

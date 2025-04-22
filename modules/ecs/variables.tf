@@ -147,6 +147,11 @@ variable "ssm_employer_url_arn" {
   type        = string
 }
 
+variable "ssm_user_url_arn" {
+  description = "SSM USER_URL ARN"
+  type        = string
+}
+
 variable "ssm_sentry_dsn_arn" {
   description = "SSM SENTRY_DSN ARN"
   type        = string

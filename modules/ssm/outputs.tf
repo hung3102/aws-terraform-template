@@ -58,6 +58,10 @@ output "employer_url_arn" {
   value = aws_ssm_parameter.employer_url.arn
 }
 
+output "user_url_arn" {
+  value = aws_ssm_parameter.user_url.arn
+}
+
 output "sentry_dsn_arn" {
   value = aws_ssm_parameter.sentry_dsn.arn
 }
