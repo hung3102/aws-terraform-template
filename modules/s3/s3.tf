@@ -143,7 +143,10 @@ data "aws_iam_policy_document" "asset_bucket_oac_access" {
     condition {
       test     = "StringEquals"
       variable = "AWS:SourceArn"
-      values   = [var.employer_cloudfront_distribution_arn]
+      values = [
+        var.employer_cloudfront_distribution_arn,
+        var.user_cloudfront_distribution_arn,
+      ]
     }
   }
 }

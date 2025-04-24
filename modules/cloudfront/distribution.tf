@@ -100,6 +100,12 @@ resource "aws_cloudfront_distribution" "user_distribution" {
     origin_access_control_id = aws_cloudfront_origin_access_control.user_OAC.id
   }
 
+  origin {
+    domain_name              = var.public_bucket_domain_name
+    origin_id                = local.asset_bucket_origin_id
+    origin_access_control_id = aws_cloudfront_origin_access_control.user_OAC.id
+  }
+
   enabled             = true
   is_ipv6_enabled     = true
   comment             = "user S3 bucket distribution"
@@ -132,7 +138,7 @@ resource "aws_cloudfront_distribution" "user_distribution" {
   // Custom behavior for /assets/*
   ordered_cache_behavior {
     path_pattern           = "/assets/*" # Route requests to /assets/*
-    target_origin_id       = local.user_static_origin_id
+    target_origin_id       = local.asset_bucket_origin_id
     viewer_protocol_policy = "redirect-to-https"
     allowed_methods        = ["GET", "HEAD"]
     cached_methods         = ["GET", "HEAD"]
