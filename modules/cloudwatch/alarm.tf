@@ -1,4 +1,10 @@
+provider "aws" {
+  alias  = "virginia"
+  region = "us-east-1"
+}
+
 resource "aws_cloudwatch_metric_alarm" "billing_alarm" {
+  provider            = aws.virginia
   alarm_name          = "${var.prefix}-billing-alarm"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 1
