@@ -232,3 +232,9 @@ module "ses" {
   domain                = var.domain_name
   amazonses_dkim_record = module.route53.amazonses_dkim_record
 }
+
+module "waf" {
+  source     = "../../modules/waf"
+  prefix     = local.prefix
+  api_lb_arn = module.lb.api_lb.arn
+}
