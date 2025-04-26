@@ -28,5 +28,9 @@ rds_skip_final_snapshot=true
 bastion_host_instance_type="t2.micro"
 
 // route53 parameters
-domain_name="dev.japantechjob.com"
+domain_name="dev.example.com"
 route53_records = {}
+
+// billing alert
+billing_alert_email="test@example.com"
+billing_threshold=50 # USD

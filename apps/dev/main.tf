@@ -238,3 +238,16 @@ module "waf" {
   prefix     = local.prefix
   api_lb_arn = module.lb.api_lb.arn
 }
+
+module "sns" {
+  source              = "../../modules/sns"
+  prefix              = local.prefix
+  billing_alert_email = var.billing_alert_email
+}
+
+module "cloudwatch" {
+  source                      = "../../modules/cloudwatch"
+  prefix                      = local.prefix
+  billing_alert_sns_topic_arn = module.sns.billing_alert_sns_topic_arn
+  billing_threshold           = var.billing_threshold
+}

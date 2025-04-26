@@ -100,3 +100,13 @@ variable "route53_records" {
     records = list(string)
   })))
 }
+
+variable "billing_alert_email" {
+  description = "Email address to receive billing alerts"
+  type        = string
+}
+
+variable "billing_threshold" {
+  description = "Billing threshold for the alarm in USD"
+  type        = number
+}
