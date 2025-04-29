@@ -9,6 +9,7 @@ resource "aws_iam_policy" "ecs_task_role_policy" {
         {
           "Action" : [
             "s3:PutObject",
+            "s3:GetObject",
           ],
           "Effect" : "Allow",
           "Resource" : "*",

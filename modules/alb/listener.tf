@@ -1,5 +1,5 @@
 resource "aws_lb_listener" "api_http" {
-  count             = var.environment != "production" ? 1 : 0 # Create only in dev and stg
+  count             = var.environment == "development" ? 1 : 0 # Create only in dev
   load_balancer_arn = aws_lb.api.arn
   port              = 80
   protocol          = "HTTP"
