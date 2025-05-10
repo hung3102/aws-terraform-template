@@ -65,3 +65,7 @@ output "user_url_arn" {
 output "sentry_dsn_arn" {
   value = aws_ssm_parameter.sentry_dsn.arn
 }
+
+output "admin_email_arn" {
+  value = aws_ssm_parameter.admin_email.arn
+}

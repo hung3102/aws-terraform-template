@@ -156,3 +156,8 @@ variable "ssm_sentry_dsn_arn" {
   description = "SSM SENTRY_DSN ARN"
   type        = string
 }
+
+variable "ssm_admin_email_arn" {
+  description = "SSM ADMIN_EMAIL ARN"
+  type        = string
+}

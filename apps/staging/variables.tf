@@ -56,6 +56,10 @@ variable "ssm_sentry_dsn" {
   type = string
 }
 
+variable "ssm_admin_email" {
+  type = string
+}
+
 variable "api_service_desired_count" {
   type = number
 }
@@ -109,4 +113,9 @@ variable "billing_alert_email" {
 variable "billing_threshold" {
   description = "Billing threshold for the alarm in USD"
   type        = number
+}
+
+variable "admin_allowed_ips" {
+  description = "List of IP addresses allowed to access the admin panel"
+  type        = list(string)
 }

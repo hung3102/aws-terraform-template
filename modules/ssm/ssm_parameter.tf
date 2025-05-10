@@ -99,3 +99,9 @@ resource "aws_ssm_parameter" "sentry_dsn" {
   type  = "String"
   value = var.sentry_dsn
 }
+
+resource "aws_ssm_parameter" "admin_email" {
+  name  = "${var.prefix}-ADMIN_EMAIL"
+  type  = "String"
+  value = var.admin_email
+}

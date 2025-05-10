@@ -12,6 +12,7 @@ ssm_no_reply_email="no_reply_email"
 ssm_jwt_access_secret="jwt_access_secret"
 ssm_jwt_refresh_secret="jwt_refresh_secret"
 ssm_employer_url="http://localhost:8081"
+ssm_admin_email="test@gmail.com"
 
 // ecs parameters
 api_service_desired_count=1
@@ -34,3 +35,8 @@ route53_records = {}
 // billing alert
 billing_alert_email="test@example.com"
 billing_threshold=50 # USD
+
+// admin api
+admin_allowed_ips = [
+  "192.168.1.1",
+]

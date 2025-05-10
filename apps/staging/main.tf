@@ -145,6 +145,7 @@ module "ssm" {
   employer_url       = var.ssm_employer_url
   user_url           = var.ssm_user_url
   sentry_dsn         = var.ssm_sentry_dsn
+  admin_email        = var.ssm_admin_email
 }
 
 module "ecs" {
@@ -181,6 +182,7 @@ module "ecs" {
   ssm_employer_url_arn                 = module.ssm.employer_url_arn
   ssm_user_url_arn                     = module.ssm.user_url_arn
   ssm_sentry_dsn_arn                   = module.ssm.sentry_dsn_arn
+  ssm_admin_email_arn                  = module.ssm.admin_email_arn
 }
 
 module "rds" {
@@ -234,9 +236,10 @@ module "ses" {
 }
 
 module "waf" {
-  source     = "../../modules/waf"
-  prefix     = local.prefix
-  api_lb_arn = module.lb.api_lb.arn
+  source            = "../../modules/waf"
+  prefix            = local.prefix
+  api_lb_arn        = module.lb.api_lb.arn
+  admin_allowed_ips = var.admin_allowed_ips
 }
 
 module "sns" {

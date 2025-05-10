@@ -71,6 +71,10 @@ resource "aws_ecs_task_definition" "api" {
           {
             "name" : "SENTRY_DSN",
             "valueFrom" : var.ssm_sentry_dsn_arn
+          },
+          {
+            "name" : "ADMIN_EMAIL",
+            "valueFrom" : var.ssm_admin_email_arn
           }
         ],
         "environmentFiles" : [],

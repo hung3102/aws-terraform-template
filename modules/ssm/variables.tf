@@ -70,3 +70,7 @@ variable "user_url" {
 variable "sentry_dsn" {
   type = string
 }
+
+variable "admin_email" {
+  type = string
+}
