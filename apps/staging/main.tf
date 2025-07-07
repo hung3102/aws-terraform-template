@@ -126,26 +126,27 @@ module "codedeploy" {
 }
 
 module "ssm" {
-  source             = "../../modules/ssm"
-  prefix             = local.prefix
-  app_env            = var.ssm_app_env
-  cors               = var.ssm_cors
-  app_port           = 3000
-  api_url            = var.ssm_api_url
-  jwt_access_secret  = var.ssm_jwt_access_secret
-  jwt_refresh_secret = var.ssm_jwt_refresh_secret
-  resume_bucket_name = module.s3.resume_bucket_name
-  public_bucket_name = module.s3.public_bucket_name
-  db_host            = module.rds.db_host
-  db_port            = module.rds.db_port
-  db_name            = var.ssm_db_name
-  db_user            = var.ssm_db_user
-  db_password        = var.ssm_db_password
-  no_reply_email     = var.ssm_no_reply_email
-  employer_url       = var.ssm_employer_url
-  user_url           = var.ssm_user_url
-  sentry_dsn         = var.ssm_sentry_dsn
-  admin_email        = var.ssm_admin_email
+  source                 = "../../modules/ssm"
+  prefix                 = local.prefix
+  app_env                = var.ssm_app_env
+  cors                   = var.ssm_cors
+  app_port               = 3000
+  api_url                = var.ssm_api_url
+  jwt_access_secret      = var.ssm_jwt_access_secret
+  jwt_refresh_secret     = var.ssm_jwt_refresh_secret
+  resume_bucket_name     = module.s3.resume_bucket_name
+  public_bucket_name     = module.s3.public_bucket_name
+  db_host                = module.rds.db_host
+  db_port                = module.rds.db_port
+  db_name                = var.ssm_db_name
+  db_user                = var.ssm_db_user
+  db_password            = var.ssm_db_password
+  no_reply_email         = var.ssm_no_reply_email
+  employer_url           = var.ssm_employer_url
+  user_url               = var.ssm_user_url
+  sentry_dsn             = var.ssm_sentry_dsn
+  admin_email            = var.ssm_admin_email
+  scheduler_secret_token = var.ssm_scheduler_secret_token
 }
 
 module "ecs" {

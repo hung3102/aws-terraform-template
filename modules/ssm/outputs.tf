@@ -69,3 +69,7 @@ output "sentry_dsn_arn" {
 output "admin_email_arn" {
   value = aws_ssm_parameter.admin_email.arn
 }
+
+output "scheduler_secret_token_arn" {
+  value = aws_ssm_parameter.scheduler_secret_token.arn
+}

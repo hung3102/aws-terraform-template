@@ -13,6 +13,7 @@ ssm_jwt_access_secret="jwt_access_secret"
 ssm_jwt_refresh_secret="jwt_refresh_secret"
 ssm_employer_url="http://localhost:8081"
 ssm_admin_email="test@gmail.com"
+ssm_scheduler_secret_token="scheduler_secret_token"
 
 // ecs parameters
 api_service_desired_count=1

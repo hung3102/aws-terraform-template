@@ -74,3 +74,7 @@ variable "sentry_dsn" {
 variable "admin_email" {
   type = string
 }
+
+variable "scheduler_secret_token" {
+  type = string
+}

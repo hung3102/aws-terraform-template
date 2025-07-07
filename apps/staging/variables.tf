@@ -60,6 +60,10 @@ variable "ssm_admin_email" {
   type = string
 }
 
+variable "ssm_scheduler_secret_token" {
+  type = string
+}
+
 variable "api_service_desired_count" {
   type = number
 }

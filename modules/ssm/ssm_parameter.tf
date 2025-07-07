@@ -105,3 +105,9 @@ resource "aws_ssm_parameter" "admin_email" {
   type  = "String"
   value = var.admin_email
 }
+
+resource "aws_ssm_parameter" "scheduler_secret_token" {
+  name  = "${var.prefix}-SCHEDULER_SECRET_TOKEN"
+  type  = "String"
+  value = var.scheduler_secret_token
+}
