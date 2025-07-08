@@ -9,6 +9,13 @@
 - Create SES Production Access Request (Remove Sandbox) manually
 - (Optional) Enable and Disable Security Hub manually
 
+# Lambda function
+If you update lambda function within modules/lambda, you need to zip it by run this command:
+```bash
+cd terraform
+zip modules/lambda/{function-name}.zip modules/lambda/{function-name}.js
+```
+
 # Script
 ```bash
 cd apps/dev
