@@ -73,3 +73,7 @@ output "admin_email_arn" {
 output "scheduler_secret_token_arn" {
   value = aws_ssm_parameter.scheduler_secret_token.arn
 }
+
+output "admin_token_arn" {
+  value = aws_ssm_parameter.admin_token.arn
+}

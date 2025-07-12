@@ -5,7 +5,8 @@ resource "aws_scheduler_schedule" "call_update_application_statuses" {
     mode = "OFF"
   }
 
-  schedule_expression = "rate(1 day)" # or cron(...) for more specific times
+  // run at 00:00 JST every day
+  schedule_expression = "cron(0 15 * * ? *)" # UTC time equivalent to 00:00 JST
 
   target {
     arn      = var.update_application_statuses_lambda_arn

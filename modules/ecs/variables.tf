@@ -161,3 +161,13 @@ variable "ssm_admin_email_arn" {
   description = "SSM ADMIN_EMAIL ARN"
   type        = string
 }
+
+variable "ssm_scheduler_secret_token_arn" {
+  description = "SSM SCHEDULER_SECRET_TOKEN ARN"
+  type        = string
+}
+
+variable "ssm_admin_token_arn" {
+  description = "SSM ADMIN_TOKEN ARN"
+  type        = string
+}

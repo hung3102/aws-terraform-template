@@ -111,3 +111,9 @@ resource "aws_ssm_parameter" "scheduler_secret_token" {
   type  = "String"
   value = var.scheduler_secret_token
 }
+
+resource "aws_ssm_parameter" "admin_token" {
+  name  = "${var.prefix}-ADMIN_TOKEN"
+  type  = "SecureString"
+  value = var.admin_token
+}

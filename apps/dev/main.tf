@@ -147,6 +147,7 @@ module "ssm" {
   sentry_dsn             = var.ssm_sentry_dsn
   admin_email            = var.ssm_admin_email
   scheduler_secret_token = var.ssm_scheduler_secret_token
+  admin_token            = var.ssm_admin_token
 }
 
 module "ecs" {
@@ -184,6 +185,8 @@ module "ecs" {
   ssm_user_url_arn                     = module.ssm.user_url_arn
   ssm_sentry_dsn_arn                   = module.ssm.sentry_dsn_arn
   ssm_admin_email_arn                  = module.ssm.admin_email_arn
+  ssm_scheduler_secret_token_arn       = module.ssm.scheduler_secret_token_arn
+  ssm_admin_token_arn                  = module.ssm.admin_token_arn
 }
 
 module "rds" {

@@ -75,6 +75,14 @@ resource "aws_ecs_task_definition" "api" {
           {
             "name" : "ADMIN_EMAIL",
             "valueFrom" : var.ssm_admin_email_arn
+          },
+          {
+            "name" : "SCHEDULER_SECRET_TOKEN",
+            "valueFrom" : var.ssm_scheduler_secret_token_arn
+          },
+          {
+            "name" : "ADMIN_TOKEN",
+            "valueFrom" : var.ssm_admin_token_arn
           }
         ],
         "environmentFiles" : [],

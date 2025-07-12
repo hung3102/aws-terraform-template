@@ -78,3 +78,7 @@ variable "admin_email" {
 variable "scheduler_secret_token" {
   type = string
 }
+
+variable "admin_token" {
+  type = string
+}  
