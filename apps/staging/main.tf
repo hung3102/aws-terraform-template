@@ -255,3 +255,18 @@ module "cloudwatch" {
   billing_alert_sns_topic_arn = module.sns.billing_alert_sns_topic_arn
   billing_threshold           = var.billing_threshold
 }
+
+module "scheduler" {
+  source                                 = "../../modules/scheduler"
+  prefix                                 = local.prefix
+  update_application_statuses_lambda_arn = module.lambda.update_application_statuses_lambda_arn
+  lambda_role_arn                        = module.iam.lambda_role_arn
+}
+
+module "lambda" {
+  source                 = "../../modules/lambda"
+  prefix                 = local.prefix
+  lambda_role_arn        = module.iam.lambda_role_arn
+  scheduler_secret_token = var.ssm_scheduler_secret_token
+  api_base_url           = var.ssm_api_url
+}
